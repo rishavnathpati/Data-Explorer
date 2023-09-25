@@ -43,15 +43,23 @@ def main():
 
         plot_type = st.selectbox('Choose a type of plot', ['Histogram', 'Box Plot', 'Pie Chart', 'Scatter Plot', 'Heatmap'])
         if plot_type == 'Histogram':
-            column_to_visualize = st.selectbox('Choose a column to visualize', data.select_dtypes(include=[np.number]).columns)
-            fig, ax = plt.subplots()
-            ax.hist(data[column_to_visualize])
-            st.pyplot(fig)
+            numeric_columns = data.select_dtypes(include=[np.number]).columns
+            if numeric_columns.empty:
+                st.warning('No numeric columns in the data to visualize.')
+            else:
+                column_to_visualize = st.selectbox('Choose a column to visualize', numeric_columns)
+                fig, ax = plt.subplots()
+                ax.hist(data[column_to_visualize])
+                st.pyplot(fig)
         elif plot_type == 'Box Plot':
-            column_to_visualize = st.selectbox('Choose a column to visualize', data.select_dtypes(include=[np.number]).columns)
-            fig, ax = plt.subplots()
-            ax.boxplot(data[column_to_visualize].dropna())
-            st.pyplot(fig)
+            numeric_columns = data.select_dtypes(include=[np.number]).columns
+            if numeric_columns.empty:
+                st.warning('No numeric columns in the data to visualize.')
+            else:
+                column_to_visualize = st.selectbox('Choose a column to visualize', numeric_columns)
+                fig, ax = plt.subplots()
+                ax.boxplot(data[column_to_visualize].dropna())
+                st.pyplot(fig)
         elif plot_type == 'Pie Chart':
             column_to_visualize = st.selectbox('Choose a column to visualize', data.select_dtypes(include=['object']).columns)
             fig, ax = plt.subplots()
