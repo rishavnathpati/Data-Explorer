@@ -1,6 +1,6 @@
 # Dataset Explorer
 
-This project is a web application built with Streamlit that allows users to upload, explore, and manipulate CSV datasets.
+This project is a web application built with Streamlit that allows users to upload, explore, and manipulate CSV datasets. The application has been refactored into smaller, more manageable modules.
 
 ## Features
 
@@ -25,7 +25,7 @@ This project is a web application built with Streamlit that allows users to uplo
    ```
 3. Run the application:
    ```
-   streamlit run translate_app.py
+   streamlit run app.py
    ```
 
 ## Usage
