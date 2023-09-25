@@ -54,7 +54,8 @@ def main():
                 ax.scatter(data[columns_to_visualize[0]], data[columns_to_visualize[1]])
                 st.pyplot(fig)
         elif plot_type == 'Heatmap':
-            corr = data.corr()
+            numeric_data = data.select_dtypes(include=[np.number])
+            corr = numeric_data.corr()
             fig, ax = plt.subplots()
             sns.heatmap(corr, annot=True, ax=ax)
             st.pyplot(fig)
