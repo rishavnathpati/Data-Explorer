@@ -70,10 +70,29 @@ def main():
             sns.heatmap(corr, annot=True, ax=ax)
             st.pyplot(fig)
 
-        transformation = st.text_input('Data transformation (e.g., age = age * 2)')
-        if transformation:
-            column, operation = transformation.split(' = ')
-            data[column] = data[column].apply(lambda x: eval(operation))
+        transformation = st.selectbox('Choose a data transformation', ['None', 'Normalize', 'Standardize', 'Encode categorical variables', 'Handle missing values'])
+        if transformation == 'Normalize':
+            column_to_transform = st.selectbox('Choose a column to normalize', data.select_dtypes(include=[np.number]).columns)
+            data[column_to_transform] = (data[column_to_transform] - data[column_to_transform].min()) / (data[column_to_transform].max() - data[column_to_transform].min())
+            st.write(data)
+        elif transformation == 'Standardize':
+            column_to_transform = st.selectbox('Choose a column to standardize', data.select_dtypes(include=[np.number]).columns)
+            data[column_to_transform] = (data[column_to_transform] - data[column_to_transform].mean()) / data[column_to_transform].std()
+            st.write(data)
+        elif transformation == 'Encode categorical variables':
+            column_to_transform = st.selectbox('Choose a column to encode', data.select_dtypes(include=['object']).columns)
+            data[column_to_transform] = pd.Categorical(data[column_to_transform]).codes
+            st.write(data)
+        elif transformation == 'Handle missing values':
+            missing_values_method = st.selectbox('Choose a method to handle missing values', ['Drop rows', 'Fill with mean', 'Fill with median', 'Fill with mode'])
+            if missing_values_method == 'Drop rows':
+                data = data.dropna()
+            elif missing_values_method == 'Fill with mean':
+                data = data.fillna(data.mean())
+            elif missing_values_method == 'Fill with median':
+                data = data.fillna(data.median())
+            elif missing_values_method == 'Fill with mode':
+                data = data.fillna(data.mode().iloc[0])
             st.write(data)
 
         if st.button('Download Data as CSV'):
