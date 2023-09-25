@@ -43,7 +43,7 @@ def main():
         elif plot_type == 'Pie Chart':
             column_to_visualize = st.selectbox('Choose a column to visualize', data.select_dtypes(include=['object']).columns)
             fig, ax = plt.subplots()
-            data[column_to_visualize].value_counts().plot(kind='pie', ax=ax)
+            data[column_to_visualize].value_counts().plot(kind='pie', ax=ax, autopct='%1.1f%%', textprops={'fontsize': 'small'})
             st.pyplot(fig)
         elif plot_type == 'Scatter Plot':
             columns_to_visualize = st.multiselect('Choose two columns to visualize', data.select_dtypes(include=[np.number]).columns)
