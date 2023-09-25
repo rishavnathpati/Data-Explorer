@@ -15,7 +15,7 @@ def main():
         if uploaded_file is not None:
             data = pd.read_csv(uploaded_file)
     st.write(data)
-    elif data_source == 'Input a URL':
+    elif (data_source == 'Input a URL'):
         url = st.text_input('Enter the URL of a CSV file')
         if url:
             try:
