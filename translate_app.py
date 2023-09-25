@@ -7,6 +7,8 @@ import seaborn as sns
 def main():
     st.title('Dataset Explorer')
 
+    data = pd.DataFrame()  # Initialize data as an empty DataFrame
+
     data_source = st.selectbox('Select data source', ['Upload a CSV file', 'Input a URL'])
     if data_source == 'Upload a CSV file':
         uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
