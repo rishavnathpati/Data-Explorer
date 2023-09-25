@@ -32,27 +32,32 @@ def main():
         plot_type = st.selectbox('Choose a type of plot', ['Histogram', 'Box Plot', 'Pie Chart', 'Scatter Plot', 'Heatmap'])
         if plot_type == 'Histogram':
             column_to_visualize = st.selectbox('Choose a column to visualize', data.select_dtypes(include=[np.number]).columns)
-            plt.hist(data[column_to_visualize])
-            st.pyplot()
+            fig, ax = plt.subplots()
+            ax.hist(data[column_to_visualize])
+            st.pyplot(fig)
         elif plot_type == 'Box Plot':
             column_to_visualize = st.selectbox('Choose a column to visualize', data.select_dtypes(include=[np.number]).columns)
-            plt.boxplot(data[column_to_visualize].dropna())
-            st.pyplot()
+            fig, ax = plt.subplots()
+            ax.boxplot(data[column_to_visualize].dropna())
+            st.pyplot(fig)
         elif plot_type == 'Pie Chart':
             column_to_visualize = st.selectbox('Choose a column to visualize', data.select_dtypes(include=['object']).columns)
-            data[column_to_visualize].value_counts().plot(kind='pie')
-            st.pyplot()
+            fig, ax = plt.subplots()
+            data[column_to_visualize].value_counts().plot(kind='pie', ax=ax)
+            st.pyplot(fig)
         elif plot_type == 'Scatter Plot':
             columns_to_visualize = st.multiselect('Choose two columns to visualize', data.select_dtypes(include=[np.number]).columns)
             if len(columns_to_visualize) != 2:
                 st.warning('Please select exactly two columns for scatter plot.')
             else:
-                plt.scatter(data[columns_to_visualize[0]], data[columns_to_visualize[1]])
-                st.pyplot()
+                fig, ax = plt.subplots()
+                ax.scatter(data[columns_to_visualize[0]], data[columns_to_visualize[1]])
+                st.pyplot(fig)
         elif plot_type == 'Heatmap':
             corr = data.corr()
-            sns.heatmap(corr, annot=True)
-            st.pyplot()
+            fig, ax = plt.subplots()
+            sns.heatmap(corr, annot=True, ax=ax)
+            st.pyplot(fig)
 
         transformation = st.text_input('Data transformation (e.g., age = age * 2)')
         if transformation:
