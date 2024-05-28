@@ -63,15 +63,3 @@ Before you begin, ensure you have met the following requirements:
 ## Usage
 
 After running the application, open your web browser and go to `http://localhost:8501` to start exploring your datasets!
-
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
-
-## Contact
-
-If you want to contact me you can reach me at your@email.com.
